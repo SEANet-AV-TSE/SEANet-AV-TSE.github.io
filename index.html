@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+  <title>Subtracting the unseen sounds: audio-visual target speaker extraction  with reverse auditory selective hearing</title>
+  <meta name="generator" content="Jekyll v3.9.0">
+  <meta property="og:title" content="TODO: title">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <!-- End Jekyll SEO tag -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1001.0" data-gr-ext-installed="">
+  <section class="page-header">
+    <!-- <h1 class="project-name">Demo PAGE</h1> -->
+    <!-- <h2 class="project-tagline"></h2> -->
+
+
+  </section>
+
+  <section class="main-content">
+    <h1 id="">
+      <center> Subtracting the unseen sounds: <br> audio-visual target speaker extraction  with reverse auditory selective hearing</center>
+    </h1>
+
+    <h3 id="">
+    <!-- <center>Junjie Li<sup>1</sup>, Ruijie Tao<sup>3</sup>, Zexu Pan<sup>3</sup>, Meng Ge<sup>3</sup>, Shuai Wang<sup>1</sup>, Haizhou Li<sup>1,2,3</sup> </center>
+    <center><sup>1</sup>Shenzhen Research Institute of Big Data, Shenzhen, China</center>
+    <center><sup>2</sup>The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen), China</center>
+    <center><sup>3</sup>Department of Electrical and Computer Engineering, National University of Singapore, Singapore </center>
+    </h3>
+    <center>Submitted to ICASSP 2024</center>
+    <!-- <center>Arxiv: <a href="https://arxiv.org/pdf/2309.08408.pdf">[pdf]</a></center> -->
+    <!-- <center><a href="mailto:mrjunjieli@tju.edu.cn">Email: mrjunjieli@tju.edu.cn</a> </center> --> -->
+
+
+    <br><br>
+    <h2 id="abstract">1. Abstract<a name="abstract"></a></h2>
+    <p>Audio-visual target speaker extraction (TSE) aims at extracting the specific person's voice from the audio mixture given auxiliary visual cues. Previous methods usually search for the target voice through lip-speech synchronization. However, this strategy, which is referred as `addition' method, mainly focus on the target speech while ignoring the variations of the interference characteristics. This may extract the noise signal and result in speech extraction of an incorrect person in challenging acoustic situations. To this end, we propose an audio-visual TSE framework named TalkerExtractor with a `subtraction' strategy. Specifically, it is learned to utilize the interference signal through a reverse attention mechanism, which can suppress noisy sounds and avoid incorrect speaker extraction. The experimental results show that our system achieves state-of-the-art results on six datasets for both in-domain and cross-domain evaluation. Meanwhile, to simulate real-world conversation scenarios, we generate a new dataset, namely ASW-TSE, to support TSE on sparsely overlapped speech. We will release the codes, the models and data logs.</p>
+
+    <table frame=void rules=none>
+      <tr>
+        <center><img src='./image/model.png'></center>
+      </tr>
+      <tr>
+      </tr>
+    </table>
+    <br><br>
+<!-- 
+    <h2>2. Videos<a name="Comparison"></a></h2>
+    <h3>
+      2.1 Real Conversation
+    </h3> 
+    In this section, instead of using IEMOCAP-2mix, we train a model using more data to handle real conversation scenarios. <br>
+    Dataset: <br>
+    &nbsp; &nbsp; Speech: Voxceleb2, LRS3, Mead and an unreleased dataset CUHK-law <br>
+    &nbsp; &nbsp; Noise: Musan,NoiseX-92 and wham_noise <br>
+    &nbsp; &nbsp; Reverberation:  SLR26 and SLR28 <br>
+
+    <center>
+    <video width="640" height="368" controls autoplay>
+      <source src="./video/ActiveExtract.mp4" type="video/mp4">
+      <object data="./video/ActiveExtract.mp4" width="640" height="368">
+          <embed width="640" height="368" src="./video/ActiveExtract.mp4">
+      </object>
+  </video>
+</center>
+
+    <center><small>Thanks to Xinyi Chen for helping me record this video. </small></center>
+
+    <h2>3. AudioSamples<a name="Comparison"></a></h2>
+    In this section, model is pretrained using Voxceleb2-2Mix and finetuned using IEMOCAP-2mix. <br>
+    Baselines: AV-Sepformer, USEV, ASD+AV-Sepformer <br>
+    Proposed method: ActiveExtract 
+    <h3>
+      3.1 Target Absent Clips
+    </h3>
+    <table><thead>
+      <tr>
+      <th style="text-align: center">Mixture</th>
+      <th style="text-align: center">Clean</th>
+      <th style="text-align: center">AV-Sepformer<sup>[1]</sup></th>
+      <th style="text-align: center">USEV<sup>[2]</sup></th>
+      <th style="text-align: center">ASD+AV-Sepformer</th>
+      <th style="text-align: center">ActiveExtract</th>
+      </tr></thead>
+      <tbody>
+      <!-- <tr>
+        <td style="text-align: center"><img src="./image/TA/s_5_mix.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_5_tgt.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_5_AVSep_-5.28.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_5_USEV_17.50.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_5_ASD+SE_-59.40.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_5_ActiveExtract_13.19.png" width=250px/></td>
+        </tr>
+      <tr>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_5_mix.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_5_tgt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_5_AVSep_-5.28.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_5_USEV_17.50.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_5_ASD+SE_-59.40.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_5_ActiveExtract_13.19.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      </tr> -->
+
+      <!-- <tr>
+        <td style="text-align: center"><img src="./image/TA/s_28_mix.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_28_tgt.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_28_AVSep_-70.00.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_28_USEV_6.81.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_28_ASD+SE_-69.59.png" width=250px/></td>
+        <td style="text-align: center"><img src="./image/TA/s_28_ActiveExtract_-70.00.png" width=250px/></td>
+        </tr>
+      <tr>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_28_mix.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_28_tgt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_28_AVSep_-70.00.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_28_USEV_6.81.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_28_ASD+SE_-69.59.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_28_ActiveExtract_-70.00.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        </tr>
+
+        <tr>
+          <td style="text-align: center"><img src="./image/TA/s_212_mix.png" width=250px/></td>
+          <td style="text-align: center"><img src="./image/TA/s_212_tgt.png" width=250px/></td>
+          <td style="text-align: center"><img src="./image/TA/s_212_AVSep.png" width=250px/></td>
+          <td style="text-align: center"><img src="./image/TA/s_212_USEV.png" width=250px/></td>
+          <td style="text-align: center"><img src="./image/TA/s_212_ASD+SE.png" width=250px/></td>
+          <td style="text-align: center"><img src="./image/TA/s_212_ActiveExtract.png" width=250px/></td>
+          </tr>
+        <tr>
+          <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_212_mix.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_212_tgt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_212_AVSep.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_212_USEV.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_212_ASD+SE.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_212_ActiveExtract.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center"><img src="./image/TA/s_297_mix.png" width=250px/></td>
+            <td style="text-align: center"><img src="./image/TA/s_297_tgt.png" width=250px/></td>
+            <td style="text-align: center"><img src="./image/TA/s_297_AVSep.png" width=250px/></td>
+            <td style="text-align: center"><img src="./image/TA/s_297_USEV.png" width=250px/></td>
+            <td style="text-align: center"><img src="./image/TA/s_297_ASD+SE.png" width=250px/></td>
+            <td style="text-align: center"><img src="./image/TA/s_297_ActiveExtract.png" width=250px/></td>
+            </tr>
+          <tr>
+            <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_297_mix.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_297_tgt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_297_AVSep.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_297_USEV.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_297_ASD+SE.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style="text-align: center"><audio controls="controls" ><source src="./audio/TA/s_297_ActiveExtract.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            </tr>
+      </tbody></table> --> -->
+
+    <!-- <cite>[1] Lin, Jiuxin, et al. "AV-Sepformer: Cross-Attention Sepformer for Audio-Visual Target Speaker Extraction." ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2023.</cite>
+    </br>
+    <cite>[2] Pan, Zexu, Meng Ge, and Haizhou Li. "USEV: Universal speaker extraction with visual cue." IEEE/ACM Transactions on Audio, Speech, and Language Processing 30 (2022): 3032-3045.</cite> -->
+  </section>
+</body>
+
+</html>
